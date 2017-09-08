@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+
+</head>
+<body>
+    <div class="page">
+        <ul class="list">
+            <!-- <li></li> -->
+        </ul>
+
+    </div>
+
+    <script type="text/javascript">
+    	(function(){
+            var inner = "";
+            var list = document.querySelector('.list');
+            for(var i=0; i<50; i++){
+                inner += `<li><a href="http://www.baidu.com">这是第${i}个li</a></li>`;
+    		}
+
+            list.innerHTML = inner;
+
+            var page = document.querySelector('.page');
+            page.addEventListener('touchstart', function(e){
+                e.preventDefault();
+            });
+
+            var a = list.querySelectorAll('a');
+            for(var i=0; i<a.length; i++){
+            	a[i].addEventListener('touchend', function(e){
+            		window.location.href = this.href;
+            	})
+            }
+
+            /*
+				touch误触
+            */
+    	})();
+    </script>
+</body>
+</html>

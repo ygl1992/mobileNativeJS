@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,user-scalable=no" />
+<title>Document</title>
+</head>
+
+<body>
+	<!-- 处理滑屏误触最直白的办法莫过于自定义tap事件 -->
+	<div class="page">
+		<ul class="list">
+		</ul>
+	</div>
+
+	<script type="text/javascript">
+	var inner = "";
+	var list = document.querySelector('.list');
+	var input = document.querySelector('input');
+	for(var i = 0; i < 50; i++){
+		inner += '<li><a href="http://www.miaov.com">这是第'+i+"个li</li>";
+	}	
+	list.innerHTML = inner;
+
+
+	var page = document.querySelector('.page');
+	page.addEventListener('touchstart', function(e) {
+		e.preventDefault();
+	});
+
+	var a = list.querySelectorAll('a');
+	for(var i = 0; i < a.length; i++){
+		tap(a[i], function(){
+			console.log(this);
+			window.location.href = this.href;
+		});
+	}
+
+	/*
+		el：要点击的元素
+		fn：点击之后要执行的事件
+
+		在手指抬起时判断元素有没有发生move事件，如果没有发生move事件，我们就认定用户操作的是一个tap操作
+	*/
+	function tap(el, fn){
+		var isMove = false;
+
+		el.addEventListener('touchmove', function(){
+			isMove = true;
+		});
+
+		el.addEventListener('touchend', function(e){
+			if( !isMove ){
+				fn&&fn.call(el, e);
+			}
+			isMove = false;
+		})
+	}
+	</script>
+</body>
+</html>

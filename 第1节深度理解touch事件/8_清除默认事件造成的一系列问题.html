@@ -7,30 +7,19 @@
 <meta name="description" content="">
 <meta name="keywords" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-<style type="text/css">
-	#box{
-        position: absolute;
-        top: 0;
-        left: 0;
-		width: 200px;
-		height: 200px;
-		background: red;
-        opacity: 0.5;
-	}
-</style>
 
 </head>
 <body>
-    
-    <ul class="list">
-        <!-- <li></li> -->
-    </ul>
+    <div class="page">
+        <input type="text">
+        <ul class="list">
+            <!-- <li></li> -->
+        </ul>
+
+    </div>
 
     <script type="text/javascript">
     	(function(){
-            /*
-                
-            */
             var inner = "";
             var list = document.querySelector('.list');
             for(var i=0; i<50; i++){
@@ -39,15 +28,20 @@
 
             list.innerHTML = inner;
             /*
-                新版的Chrome下，不支持直接给document，body的touch事件，阻止默认事件
+				
             */
-            // document.addEventListener('touchstart', function(e){
-            //     e.preventDefault();
-            // });
-
-            list.addEventListener('touchstart', function(e){
+            var page = document.querySelector('.page');
+            var input = document.querySelectorAll('input')[0];
+            page.addEventListener('touchstart', function(e){
                 e.preventDefault();
             });
+
+            input.addEventListener('touchstart', function(e){
+                this.focus();
+            })
+            /*
+            	最好的解决办法，跳转到一个新页面去，然后让用在新的页面进行输入
+            */
     	})();
     </script>
 </body>
