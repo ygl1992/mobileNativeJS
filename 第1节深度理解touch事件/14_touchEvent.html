@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,user-scalable=no" />
+<title>Document</title>
+<style type="text/css">
+	#box{
+		width: 200px;
+		height: 200px;
+		background: red;
+		color: #fff;
+		font-size: 20px;
+	}
+</style>
+</head>
+
+<body>
+	<div class="page">
+		<div id="box"></div>
+	</div>
+
+	<script type="text/javascript">
+		/*
+			touchEvent:
+				touches			当前屏幕上的手指列表
+				targetTouches	当前元素上的手指列表
+				changedTouches	触发当前事件的手指列表
+
+			clientX和clientY手指相对于可视区的一个坐标
+			pageX和pageY手指相对于可视区的一个坐标
+		*/
+		var page = document.querySelector('.page');
+		page.addEventListener('touchstart', function(e) {
+			e.preventDefault();
+		});
+
+		var box = document.querySelector('#box');
+		box.addEventListener('touchstart', function(e){
+			this.innerHTML = 'touches:'+e.touches.length;
+			this.innerHTML += '<br />targetTouches:'+e.targetTouches.length;
+			this.innerHTML += '<br />changedTouches:'+e.changedTouches.length;
+		})
+
+	</script>
+</body>
+</html>
