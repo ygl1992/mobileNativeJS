@@ -63,20 +63,24 @@
     		})
     	}
 
-    	var tab1 = document.querySelector('#tab1');
-    	var tabBtns = tab1.querySelectorAll('button');
-    	var tabPs = tab1.querySelectorAll('p');
+        function tabs(id){
+            var tab1 = document.querySelector(id);
+            var tabBtns = tab1.querySelectorAll('button');
+            var tabPs = tab1.querySelectorAll('p');
 
-    	for(var i=0; i<tabBtns.length; i++){
+            for(var i=0; i<tabBtns.length; i++){
 
-    		tap(tabBtns[i], function(e, index){
-    			for(var j=0; j<tabBtns.length; j++){
-    				tabPs[j].style.display = 'none';
-    			}
-    			
-    			tabPs[index].style.display = 'block';
-    		}, i)
-    	}
+                tap(tabBtns[i], function(e, index){
+                    for(var j=0; j<tabBtns.length; j++){
+                        tabPs[j].style.display = 'none';
+                    }
+                    
+                    tabPs[index].style.display = 'block';
+                }, i)
+            }
+        }
+    	tabs("#tab1");
+        tabs("#tab2");
 
     </script>
 </body>
