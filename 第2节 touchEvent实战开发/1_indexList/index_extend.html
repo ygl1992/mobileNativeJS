@@ -739,7 +739,8 @@
         }
 
 
-        indexList.addEventListener('touchmove', function(e){
+
+        window.onscroll = function(e){
             var scrollY = window.scrollY;
 
             for(var i=0, length=indexDt.length; i<length; i++){
@@ -764,7 +765,7 @@
                     navs[navs.length-1].className = 'focus';
                 }
             }
-        })
+        }
     })();
     </script>
 </body>

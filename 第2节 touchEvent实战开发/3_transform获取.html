@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="viewport" content="width=device-width, user-scalable=no" />
+<style type="text/css">
+	.box{
+		width: 100px;
+		height: 100px;
+		background: red;
+		transform: rotate(-45deg);
+	}
+</style>
+</head>
+<body>
+    <div class="box"></div>
+
+    <script type="text/javascript">
+    	var box = document.querySelector('.box');
+
+    	tap(box, function(){
+    		// var style = css(box, 'transform');
+    		transform(box, 'translateX', 100);
+    		transform(box, 'translateY', 200);
+    		/*
+    			1.通过计算后的样式，获取transform时，只能获取到matrix
+				2.matrix不可逆推回给咱们的rotate、translate、scale、skew等等，这些具体的值
+
+				解决方法：
+					1.不在把transform通过css去设置
+					2.所有的transform设置都在js进行
+					3.在transform设置的时候，同步去记录所有的值
+    		*/
+    	});
+
+    	/* transform用来设置和获取transform相关的值 */
+    	function transform(el, attr, val){
+    		if( !el.transform ){
+    			el.transform = {
+    				// rotate: 0,
+    				// rotateX: 0,
+    				// rotateY: 0,
+    				// rotateZ: 0,
+    				// skewX: 0,
+    				// skewY: 0,
+    				// scale: 1,
+    				// scaleX: 1,
+    				// scaleY: 1,
+    				// scaleZ: 1,
+    				// translateX: 0,
+    				// translateY: 0,
+    				// translateZ: 0
+    			}
+    		}
+
+    		/* 获取元素相应的值 */
+    		if( !val ){
+    			return el.transform[attr];
+    		}
+
+    		el.transform[attr] = val;	// 记录对象中元素的值
+    		console.log(el.transform);
+    		/*
+    			旋转 deg
+    			缩放
+    			斜切 deg
+    			位移 px
+    		*/
+    		var str = '';
+    		for( var s in el.transform ){
+    			switch(s){
+	    			case 'rotate':
+	    			case 'rotateX':
+	    			case 'rotateY':
+	    			case 'rotateZ':
+	    			case 'skewX':
+	    			case 'skewY':
+	    				str += s + '('+ el.transform[s] +'deg)';
+	    				break;
+	    			case 'scale':
+	    			case 'scaleX':
+	    			case 'scaleY':
+	    				str += s + '('+ el.transform[s] +')';
+	    				break;
+	    			case 'translateX':
+	    			case 'translateY':
+	    			case 'translateZ':
+	    				str += s + '('+ el.transform[s] +'px)';
+	    				break;
+	    		}
+    		}
+	    		
+    		// 我们所有的设置都存在transform这个对象中，在真正设置的时候，需要把transform的所有设置都连接过来
+    		el.style.WebkitTransform = el.style.transform = str;
+    	}
+    	function tap(el, fn){
+			var isMove = false;
+			var startPoint = {};
+
+			el.addEventListener('touchstart', function(e){
+				startPoint = {
+					x: e.changedTouches[0].pageX,
+					y: e.changedTouches[0].pageY
+				}
+			});
+
+			el.addEventListener('touchend', function(e){
+				var nowPoint = {
+					x: e.changedTouches[0].pageX,
+					y: e.changedTouches[0].pageY
+				}
+				
+				if( Math.abs(nowPoint.x-startPoint.x)<5 && Math.abs(nowPoint.y-startPoint.y)<5 ){
+					fn&&fn.call(el, e);
+				}
+			});
+		}
+    	function css(el, attr, val){
+    		var transformArrt = [
+				'rotate',
+				'rotateX',
+				'rotateY',
+				'rotateZ',
+				'skewX',
+				'skewY',
+				'scale',
+				'scaleX',
+				'scaleY',
+				'translateX',
+				'translateY',
+				'translateZ'
+    		]
+
+   			if( val ){	// 当val不为空的时候，就是设置样式
+   				if( attr == 'opacity' ){
+   					el.style[attr] = val;
+   				}else{
+   					el.style[attr] = val+'px';
+   				}
+   			}else{		// 当val为空的时候，就是获取样式
+				var val = getComputedStyle(el)[attr];
+	   			val = parseFloat(val);
+	   			return val;
+   			}
+   		}
+    </script>
+</body>
+</html>

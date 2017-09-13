@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="viewport" content="width=device-width, user-scalable=no" />
+<style type="text/css">
+	*{
+		margin: 0;
+		padding: 0;
+	}
+	.page{
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+	}
+	header{
+		position: fixed;
+		z-index: 100;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 40px;
+		line-height: 40px;
+		background: #000;
+		color: #fff;
+		text-align: center;
+	}
+	.wrap{
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: 40px;
+		bottom: 0;
+	}
+	.list{
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+	}
+	.list li{
+		font: 14px/34px "宋体";
+		border-bottom: 1px solid #ccc;
+		text-indent: 2em;
+		line-height: 30px;
+	}
+</style>
+</head>
+<body>
+    <div class="page">
+    	<header>妙味滑屏</header>
+    	<div class="wrap">
+    		<ul class="list">
+    			
+    		</ul>
+    	</div>
+    </div>
+
+   	<script type="text/javascript">
+   		// 页面结构
+   		(function(){
+   			var list = document.querySelector('.list');
+	   		var html = '';
+	   		for(var i=0; i<50; i++){
+	   			html += '<li>这是第'+(i+1)+'个li</li>';
+	   		}
+	   		list.innerHTML = html;	
+   		})();
+   		// 滑屏操作
+   		/*
+			1.按下时，获取元素坐标和手指坐标
+			2.move时，获取手指坐标
+			3.用move的手指 - start时的手指坐标 = 手指移动距离
+			4.start时元素坐标 + 手指移动距离 = 元素的当前距离
+   		*/
+   		(function(){
+   			var wrap = document.querySelector('.wrap');
+   			var list = document.querySelector('.list');
+
+   			var startPoint = 0;
+   			var startEl = 0;
+
+   			wrap.addEventListener('touchstart', function(e){
+   				startPoint = e.changedTouches[0].pageY;
+   				startEl = css(list, 'top');
+   			});
+
+   			wrap.addEventListener('touchmove', function(e){
+   				var nowPoint = e.changedTouches[0].pageY;
+   				var pointDis = nowPoint-startPoint;
+
+   				css(list, 'top', pointDis+startEl)
+   			})
+   		})();
+
+   		// 获取或者设置元素的样式
+   		// top left width height marginLeft
+   		// opacity
+   		function css(el, attr, val){
+   			if( val ){	// 当val不为空的时候，就是设置样式
+   				if( attr == 'opacity' ){
+   					el.style[attr] = val;
+   				}else{
+   					el.style[attr] = val+'px';
+   				}
+   			}else{		// 当val为空的时候，就是获取样式
+				var val = getComputedStyle(el)[attr];
+	   			val = parseFloat(val);
+	   			return val;
+   			}
+   			
+   		}
+   	</script>
+</body>
+</html>
