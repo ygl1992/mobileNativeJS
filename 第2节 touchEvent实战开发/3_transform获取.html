@@ -11,6 +11,7 @@
 		height: 100px;
 		background: red;
 		transform: rotate(-45deg);
+		transition: 1s;
 	}
 </style>
 </head>
@@ -22,8 +23,13 @@
 
     	tap(box, function(){
     		// var style = css(box, 'transform');
-    		transform(box, 'translateX', 100);
-    		transform(box, 'translateY', 200);
+    		css(box, 'translateX', 100);
+    		tap(box, function(){
+    			var y = css(box, 'translateY');
+    			y+=30;
+    			css(box, 'translateY', y)
+    		})
+    		css(box, 'translateY', 200);
     		/*
     			1.通过计算后的样式，获取transform时，只能获取到matrix
 				2.matrix不可逆推回给咱们的rotate、translate、scale、skew等等，这些具体的值
@@ -39,19 +45,6 @@
     	function transform(el, attr, val){
     		if( !el.transform ){
     			el.transform = {
-    				// rotate: 0,
-    				// rotateX: 0,
-    				// rotateY: 0,
-    				// rotateZ: 0,
-    				// skewX: 0,
-    				// skewY: 0,
-    				// scale: 1,
-    				// scaleX: 1,
-    				// scaleY: 1,
-    				// scaleZ: 1,
-    				// translateX: 0,
-    				// translateY: 0,
-    				// translateZ: 0
     			}
     		}
 
@@ -61,7 +54,6 @@
     		}
 
     		el.transform[attr] = val;	// 记录对象中元素的值
-    		console.log(el.transform);
     		/*
     			旋转 deg
     			缩放
@@ -132,6 +124,13 @@
 				'translateY',
 				'translateZ'
     		]
+
+    		for(var i=0; i<transformArrt.length; i++){
+    			if( attr == transformArrt[i] ){	//如果attr等于transform中的一个值，就代表用户想要操作的是transform
+    				return transform(el, attr, val)
+
+    			}
+    		}
 
    			if( val ){	// 当val不为空的时候，就是设置样式
    				if( attr == 'opacity' ){
