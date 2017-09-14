@@ -44,7 +44,6 @@
 		抬起的时候，判断手指坐标和按下的手指坐标的差值，小于一定值时我们就认定它是点击
 	*/
 	function tap(el, fn){
-		var isMove = false;
 		var startPoint = {};
 
 		el.addEventListener('touchstart', function(e){

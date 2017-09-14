@@ -49,8 +49,8 @@
     		}
 
     		/* 获取元素相应的值 */
-    		if( !val ){
-    			return el.transform[attr];
+    		if( val == undefined ){
+    			return el.transform[attr]?el.transform[attr]:0;
     		}
 
     		el.transform[attr] = val;	// 记录对象中元素的值
@@ -88,7 +88,6 @@
     		el.style.WebkitTransform = el.style.transform = str;
     	}
     	function tap(el, fn){
-			var isMove = false;
 			var startPoint = {};
 
 			el.addEventListener('touchstart', function(e){
@@ -141,7 +140,7 @@
    			}else{		// 当val为空的时候，就是获取样式
 				var val = getComputedStyle(el)[attr];
 	   			val = parseFloat(val);
-	   			return val;
+	   			return val?val:0;
    			}
    		}
     </script>

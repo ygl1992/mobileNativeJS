@@ -102,16 +102,16 @@
    		// top left width height marginLeft
    		// opacity
    		function css(el, attr, val){
-   			if( val ){	// 当val不为空的时候，就是设置样式
-   				if( attr == 'opacity' ){
+   			if( val == undefined ){	// 当val不为空的时候，就是设置样式
+   				var val = getComputedStyle(el)[attr];
+	   			val = parseFloat(val);
+	   			return val;
+   			}else{		// 当val为空的时候，就是获取样式
+	   			if( attr == 'opacity' ){
    					el.style[attr] = val;
    				}else{
    					el.style[attr] = val+'px';
    				}
-   			}else{		// 当val为空的时候，就是获取样式
-				var val = getComputedStyle(el)[attr];
-	   			val = parseFloat(val);
-	   			return val;
    			}
    			
    		}

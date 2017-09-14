@@ -13,7 +13,6 @@
 		抬起的时候，判断手指坐标和按下的手指坐标的差值，小于一定值时我们就认定它是点击
 	*/
 	function tap(el, fn){
-		var isMove = false;
 		var startPoint = {};
 
 		el.addEventListener('touchstart', function(e){
@@ -57,11 +56,11 @@
 
 		for(var i=0; i<transformArrt.length; i++){
 			if( attr == transformArrt[i] ){	//如果attr等于transform中的一个值，就代表用户想要操作的是transform
-				return transform(el, attr, val)
+				return transform(el, attr, val);
 			}
 		}
 
-		if( val ){	// 当val不为空的时候，就是设置样式
+		if( val == undefined ){	// 当val不为空的时候，就是设置样式
 			if( attr == 'opacity' ){
 				el.style[attr] = val;
 			}else{
@@ -70,7 +69,7 @@
 		}else{		// 当val为空的时候，就是获取样式
 			var val = getComputedStyle(el)[attr];
 			val = parseFloat(val);
-			return val;
+			return val?val:0;
 		}
 	}
 
@@ -82,8 +81,8 @@
 		}
 
 		/* 获取元素相应的值 */
-		if( !val ){
-			return el.transform[attr];
+		if( val == undefined ){
+			return el.transform[attr]?el.transform[attr]:0;
 		}
 
 		el.transform[attr] = val;	// 记录对象中元素的值
