@@ -20,7 +20,27 @@
     <script type="text/javascript">
     	(function(){
     		window.requestAnimationFrame = window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame;
-    		window.cancelAnimationFrame = window.cancelAnimationFrame||window.webkitCancelAnimationFrame||window.mozCancelAnimationFrame;
+    		window.cancelAnimationFrame = window.cancelAnimationFrame||window.webkitCancelAnimationFrame||window.mozCancelAnimationFrame||window.cancelRequestAnimationFrame||window.webkitCancelRequestAnimationFrame||window.mozCancelRequestAnimationFrame;
+
+    		if( !requestAnimationFrame ){
+    			var lastTime = 
+    			window.requestAnimationFrame = function(callback){
+    				var id;
+    				var nowTime = Date.now();
+    				// 如果上一次的时间和本次时间执行的间隔大于16.7，那就不再延迟直接执行
+    				var delay = Math.max(16.7-(nowTime-lastTime), 0);
+    				
+    				id = setTimeout(callback, delay);
+    				// 上一次动画执行的时间
+    				lastTime = nowTime + delay;
+    				return id;
+    			}
+    		}
+    		if( !cancelAnimationFrame ){
+    			window.cancelAnimationFrame = function(index){
+    				clearTimeout(index);
+    			}
+    		}
     	})();
 
 	    (function(){

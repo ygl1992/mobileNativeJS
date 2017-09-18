@@ -86,21 +86,20 @@
 
         <ul class="textlist"></ul>
 
-        <a href="http://api.viigoo.com/content/Agreement/CashLoanIntermediary/000000025w8E.pdf" class="js-InterAgree">居间服务协议</a>
     </div>
 	
 	<script type="text/javascript" src="js/miaov.touch.js"></script>
     <script type="text/javascript">
         /* 列表的内容添加 */
-        // (function(){
-        //     var list = document.querySelector('.textlist');
-        //     var inner = '';
+        (function(){
+            var list = document.querySelector('.textlist');
+            var inner = '';
 
-        //     for(var i=0; i< 50; i++){
-        //         inner+=`<li>这是第${i}个li</li>`;
-        //     }
-        //     list.innerHTML = inner;
-        // })();
+            for(var i=0; i< 50; i++){
+                inner+=`<li>这是第${i}个li</li>`;
+            }
+            list.innerHTML = inner;
+        })();
         /* 布局设置 */
     	(function(){
     		var wrap = document.querySelector('.wrap');
@@ -156,11 +155,11 @@
     				}
     				navs[now%navs.length].className = 'focus';
 
-    				auto();
+    				//auto();
     			}
     		});
 
-    		auto();
+    		//auto();
     		/* 自动播放 */
     		function auto(){
     			timer = setInterval(function(){
@@ -208,7 +207,10 @@
     		var scroll = wrap.children[0];	// 滑动的元素
     		var startPoint = {};
     		var startEl = {};
-
+            var isDir = {
+                x: false,
+                y: false
+            }
     		var dirTranslate = {
     			x: 'translateX',
     			y: 'translateY'
@@ -245,6 +247,12 @@
     				y: nowPoint.y - startPoint.y
     			};
 
+                if( Math.abs(dis.x)>Math.abs(dis.y) ){
+                    isDir.x = true;
+                }else{
+                    isDir.y = true;
+                }
+
     			// 元素应该要在的位置
     			var target = {
     				x: startEl.x + dis.x,
@@ -252,7 +260,10 @@
     			};
 
     			/* 设置样式 */
-    			css(scroll, dirTranslate[dir], target.x);
+                if( isDir[dir] ){   // 用户如果滑屏方向和我们要求的方向一致的时候
+                    css(scroll, dirTranslate[dir], target[dir]);
+                    e.preventDefault();
+                }
     		});
 
     		wrap.addEventListener('touchend', function(e){
