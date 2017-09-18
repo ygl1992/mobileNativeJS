@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="viewport" content="width=device-width, user-scalable=no">
+<style type="text/css">
+	.box{
+		width: 100px;
+		height: 100px;
+		background: red;
+	}
+</style>
+</head>
+<body>
+    <div class="box"></div>
+	
+	<script type="text/javascript" src="js/miaov.touch.js"></script>
+    <script type="text/javascript">
+    	(function(){
+    		window.requestAnimationFrame = window.requestAnimationFrame||window.webkitRequestAnimationFrame||window.mozRequestAnimationFrame;
+    		window.cancelAnimationFrame = window.cancelAnimationFrame||window.webkitCancelAnimationFrame||window.mozCancelAnimationFrame;
+    	})();
+
+	    (function(){
+	    	var box = document.querySelector('.box');
+	    	css(box, 'translateX', 0);
+
+	    	var timer = requestAnimationFrame(move);
+
+			/*
+				requestAnimationFrame 调用一下 只走一次，类似于setTimeout
+				参数：动画的回调函数
+				返回值：动画帧的编号
+			*/
+
+	    	function move(){
+	    		var moveX = css(box, 'translateX');
+	    		if( moveX>600 ){
+	    			cancelAnimationFrame(timer);
+	    		}else{
+	    			moveX+=10;
+					css(box, 'translateX', moveX); 
+					timer = requestAnimationFrame(move);   			
+	    		}
+	    	}
+	    })();
+    </script>
+</body>
+</html>
