@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-<title>Examples</title>
+<title>2_横向滑屏和纵向滑屏</title>
 <meta name="viewport" content="width=device-width, user-scalable=no" />
 <style type="text/css">
 	body{
@@ -49,6 +49,11 @@
 	.nav a.focus{
 		background: blue;
 	}
+    .textlist li{
+        line-height: 32px;
+        border-bottom: 1px solid #ccc;
+        text-indent: 1em;
+    }
 </style>
 </head>
 <body>
@@ -78,10 +83,25 @@
 	    		<a href="javascript:;"></a>
 	    	</nav>
 	    </div>
+
+        <ul class="textlist"></ul>
+
+        <a href="http://api.viigoo.com/content/Agreement/CashLoanIntermediary/000000025w8E.pdf" class="js-InterAgree">居间服务协议</a>
     </div>
 	
 	<script type="text/javascript" src="js/miaov.touch.js"></script>
     <script type="text/javascript">
+        /* 列表的内容添加 */
+        // (function(){
+        //     var list = document.querySelector('.textlist');
+        //     var inner = '';
+
+        //     for(var i=0; i< 50; i++){
+        //         inner+=`<li>这是第${i}个li</li>`;
+        //     }
+        //     list.innerHTML = inner;
+        // })();
+        /* 布局设置 */
     	(function(){
     		var wrap = document.querySelector('.wrap');
     		var list = document.querySelector('.list');
