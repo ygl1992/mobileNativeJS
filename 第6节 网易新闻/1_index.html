@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="viewport" content="width=device-width, user-scalable=no">
+<script type="text/javascript" src="js/m.touch.js"></script>
+<script type="text/javascript">
+	var html = document.documentElement;
+	var size = html.clientWidth/7.5;
+	html.style.fontSize = size+'px';
+</script>
+<style type="text/css">
+	body,
+	p,
+	ul,
+	li{
+		margin: 0;
+		padding: 0;
+	}
+	a{
+		text-decoration: none;
+	}
+	body,html{
+		height: 100%;
+	}
+	.page{
+		position: relative;
+		height: 100%;
+		overflow: hidden;
+		background: #ccc;
+	}
+	#header{
+		line-height: 40px;
+		background: #fff;
+		text-align: center;
+		font: 20px/40px '宋体';
+	}
+	/* 导航部分样式 */
+	#nav{
+		position: relative;
+		z-index: 10;
+		height: 40px;
+		background: #c00;
+	}
+	.nav{
+		margin-right: 40px;
+		height: 40px;
+		overflow: hidden;
+	}
+	.nav:before{
+		content: '';
+		position: absolute;
+		/*z-index: 10;*/
+		left: 0;
+		top: 0;
+		width: 30px;
+		height: 40px;
+		background: linear-gradient(90deg, red, rgba(255,0,0,0));
+	}
+	.nav:after{
+		content: '';
+		position: absolute;
+		/*z-index: 10;*/
+		right: 0;
+		top: 0;
+		width: 30px;
+		height: 40px;
+		background: linear-gradient(-90deg, red, rgba(255,0,0,0));
+	}
+	.nav p{
+		float: left;
+		white-space: nowrap;
+		font: 14px/40px '宋体';
+	}
+	.nav a{
+		margin: 0 10px;
+		color: #fff;
+	}
+	.navOpen{
+		position: absolute;
+		right: 0;
+		top: 0;
+		width: 40px;
+		font: 14px/40px '宋体';
+		color: #fff;
+		text-align: center;
+	}
+	.navdetails{
+		position: absolute;
+		left: 0;
+		top: 40px;
+		width: 100%;
+		height: 0;
+		overflow: hidden;
+		background: #fff;
+		webkit-backface-visibility: hidden;
+		backface-visibility: hidden;
+		transition: 0.3s;
+	}
+	/* 幻灯片 */
+	#tabImg{
+		position: relative;
+		z-index: 1;
+		overflow: hidden;
+		-webkit-transform-style: preserve-3d;
+		transform-style: preserve-3d;
+	}
+	#tabImg .imgs{
+		list-style: none;
+		overflow: hidden;
+		-webkit-backface-visibility: hidden;
+		backface-visibility: hidden;
+	}
+	#tabImg .imgs li{
+		float: left;
+	}
+	#tabImg .imgs img{
+		width: 100%;
+		vertical-align: middle;
+	}
+	.number{
+		position: absolute;
+		right: 10px;
+		bottom: 10px;
+		line-height: 30px;
+		font-size: 16px;
+	}
+	.t{
+		font-size: 20px;
+		color: #f00;
+	}
+	.d{
+		font-size: 16px;
+	}
+	.textList li{
+		overflow: hidden;
+		border-bottom: thin solid #000;
+		background: #fff;
+	}
+	.textList img{
+		float: left;
+		margin: 0.2rem;
+		width: 1.6rem;
+		height: 1.2rem;
+	}
+	.textList p{
+		float: left;
+		width: 5.5rem;
+		font: .3rem/1.6rem '宋体';
+	}
+</style>
+</head>
+<body>
+    <div class="page">
+    	<div class="scroll">
+    		<header id="header">妙味课堂</header>
+			<!-- 导航 -->
+			<nav id="nav">
+				<div class="nav">
+					<p>
+						<a href="#">推荐</a>
+						<a href="#">新闻</a>
+						<a href="#">鱼类</a>
+						<a href="#">军事</a>
+						<a href="#">新闻</a>
+						<a href="#">八卦</a>
+						<a href="#">体育</a>
+						<a href="#">足球</a>
+						<a href="#">篮球</a>
+						<a href="#">导弹</a>
+						<a href="#">国际</a>
+						<a href="#">欧洲</a>
+						<a href="#">国内</a>
+						<a href="#">政治</a>
+						<a href="#">文化</a>
+						<a href="#">武器</a>
+						<a href="#">程序</a>
+						<a href="#">前端</a>
+					</p>
+				</div>
+				<a href="javascript:;" class="navOpen">展开</a>
+				<div class="navdetails">展开的详细内容</div>
+			</nav>
+			<!-- 幻灯片 -->
+			<div id="tabImg">
+				<ul class="imgs">
+					<li><img src="img/1.jpg" alt=""></li>
+					<li><img src="img/2.jpg" alt=""></li>
+					<li><img src="img/3.jpg" alt=""></li>
+				</ul>
+				<p class="number">
+					
+				</p>
+			</div>
+			<!-- 页面内容 -->
+			<ul class="textList">
+				<li>
+					<img src="img/img.jpg" alt="">
+					<p>这是第1个li的内容</p>
+				</li>
+			</ul>
+			<footer>加载更多内容。。。</footer>
+    	</div>
+    </div>
+
+    <script type="text/javascript" src="js/index.js"></script>
+</body>
+</html>

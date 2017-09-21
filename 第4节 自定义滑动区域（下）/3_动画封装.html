@@ -60,36 +60,7 @@
                 callIn 动画执行中
             }
         */
-        function startMove(init){
-            var t = 0;
-            var b = {}; // 样式的初始值
-            var c = {}; // 样式的差值
-            var d = Math.ceil(init.time/16.7);
-
-            cancelAnimationFrame(init.el.timer);
-            
-            for(var s in init.target){
-                b[s] = css(init.el, s);
-                c[s] = init.target[s] - b[s];
-            }
-
-            init.el.timer = requestAnimationFrame(move);
-            function move(){
-                if( t>d ){
-                    cancelAnimationFrame(init.el.timer);
-                    init.callBack&&init.callBack.call(init.target);
-                }else{
-                    t++;
-                    
-                    for(var s in init.target){
-                        var val = Tween[init.type](t,b[s], c[s], d);
-                        css(init.el, s, val);
-                    }
-                    init.callIn&&init.callIn.call(init.target);
-                    init.el.timer = requestAnimationFrame(move);
-                }
-            }
-        }
+       
     </script>
 </body>
 </html>
