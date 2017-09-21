@@ -98,6 +98,10 @@ for(var i=0; i<100; i++){
 	var page = document.querySelector('.page');
 	var scroll = document.querySelector('.scroll');
 	var textList = document.querySelector('.textList');
+	var nav = document.querySelector('#nav');
+	var navTop  = nav.getBoundingClientRect().top;
+	var footer = document.querySelector('footer');
+	var min = 0;	//移动出去的最大距离
 	var now = 0;
 	var length = 20;
 
@@ -106,7 +110,14 @@ for(var i=0; i<100; i++){
 	swiperBar({
 		wrap: page,
 		dir: 'y',
-		backOut: 'out'
+		backOut: 'out',
+		move: function(){
+			//导航吸附
+			var scrollY = css(scroll, 'translateY');
+			if( -scrollY >= navTop ){
+				css(nav, 'translateY', -(navTop+scrollY));
+			}
+		}
 	});
 
 	/* 上滑生成元素，要调用的方法 */
