@@ -36,6 +36,8 @@
 		background: #fff;
 		text-align: center;
 		font: 20px/40px '宋体';
+		webkit-backface-visibility: hidden;
+		backface-visibility: hidden;
 	}
 	/* 导航部分样式 */
 	#nav{
@@ -99,6 +101,14 @@
 		backface-visibility: hidden;
 		transition: 0.3s;
 	}
+	.pullState{
+		position: absolute;
+		top: 40px;
+		left: 0;
+		width: 100%;
+		font: 16px/40px '宋体';
+		text-align: center;
+	}
 	/* 幻灯片 */
 	#tabImg{
 		position: relative;
@@ -150,6 +160,12 @@
 		width: 5.5rem;
 		font: .3rem/1.6rem '宋体';
 	}
+	/* 底部 */
+	#footer{
+		text-align: center;
+		line-height: 40px;
+		font-size: 16px;
+	}
 </style>
 </head>
 <body>
@@ -183,6 +199,8 @@
 				<a href="javascript:;" class="navOpen">展开</a>
 				<div class="navdetails">展开的详细内容</div>
 			</nav>
+			<!-- 下拉刷新的状态 -->
+			<p class="pullState">下拉加载最新消息</p>
 			<!-- 幻灯片 -->
 			<div id="tabImg">
 				<ul class="imgs">
@@ -201,7 +219,7 @@
 					<p>这是第1个li的内容</p>
 				</li>
 			</ul>
-			<footer>加载更多内容。。。</footer>
+			<footer id="footer">加载更多内容。。。</footer>
     	</div>
     </div>
 
