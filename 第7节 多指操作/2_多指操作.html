@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="viewport" content="width=device-width, user-scalable=no">
+<style type="text/css">
+    .box{
+        width: 200px;
+        height: 200px;
+        background: red;
+    }
+</style>
+</head>
+<body>
+    <div class="box"></div>
+
+    <script type="text/javascript">
+    	var box = document.querySelector('.box');
+
+        gesture({
+            el: box,
+            start: function(){
+                box.style.background = 'blue';
+            },
+            end: function(){
+                box.style.background = 'red';
+            }
+        });
+    	/*
+    		手指事件
+    		gesturestart	手指碰触元素时在屏幕上有两根或者两根以上手指
+    		gesturechange	当触发了gesturestart，两根手指的发生变化
+    		gestureend		多指触碰结束
+
+            在安卓下，没有手势（gesture）事件
+
+            封装我们自己的手势操作
+    	*/
+
+    	init:{
+            el: 要添加事件的元素,
+            start: 按下时要操作的事件gesturestart,
+            change:{ 手指移动时的回调gesturechange
+                e.scale     在change时，手指之间的距离和start时手指之间距离的比值,
+                e.rotation  在change时和start时，手指旋转角度的差值
+            },
+            end: 多指操作结束的回调
+        }
+
+        function gesture(init){
+            var isGesture = false;
+            var el = init.el;
+
+            el.addEventListener('touchstart', function(e){
+                var touch = e.touches;
+                
+                if( touch.length >=2 ){ //当屏幕上有两根以上的手指
+                    isGesture = true;
+                    init.start&&init.start.call(el, e);
+                }
+            });
+
+            el.addEventListener('touchend', function(e){
+                if( isGesture ){
+                    init.end&&init.end.call(el, e);
+                }
+                isGesture = false;
+            })
+        }
+    </script>
+</body>
+</html>

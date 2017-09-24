@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="viewport" content="width=device-width, user-scalable=no">
+</head>
+<body>
+    <div class="box"></div>
+
+    <script type="text/javascript">
+    	var box = document.querySelector('.box');
+
+    	/*
+    		手指事件
+    		gesturestart	手指碰触元素时在屏幕上有两根或者两根以上手指
+    		gesturechange	当触发了gesturestart，两根手指的发生变化
+    		gestureend		多指触碰结束
+    	*/
+
+    	box.addEventListener('gesturestart', function(){
+    		console.log('多指碰撞');
+    	});
+    	box.addEventListener('gesturechange', function(e){
+    		console.log('多指移动');
+    		console.log(e.scale); 	 //在change时，手指之间的距离和start时手指之间距离的比值
+    		console.log(e.rotation); //在change时和start时手指旋转角度的差值
+    	});
+    	box.addEventListener('gestureend', function(){
+    		console.log('多指触碰 抬起');
+    	});
+    </script>
+</body>
+</html>
