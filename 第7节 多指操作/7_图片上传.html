@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="viewport" content="width=device-width, user-scalable=no">
+<style type="text/css">
+	.text{
+		word-wrap: break-word;
+	}
+</style>
+
+</head>
+<body>
+    <input id="file" type="file" accept="image">
+    <div class="text"></div>
+
+    <script type="text/javascript">
+    	/*
+    		readAsDataURL();		把文件读取成dataUrl
+    		readAsText();			把文件读取成text
+    		readAsBinaryString();	把文件读取成二进制编码
+    	*/
+    	var file = document.querySelector('#file');
+    	var text = document.querySelector('.text');
+
+    	file.onchange = function(){
+    		console.log(this.files[0]);
+    		var reader = new FileReader();
+    		reader.onload = function(e){
+    			var image = new Image();
+    			image.src = e.target.result;
+    			document.body.appendChild(image);
+    		};
+    		reader.readAsDataURL(this.files[0]);
+    	}
+    </script>
+</body>
+</html>
