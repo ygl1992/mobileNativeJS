@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="viewport" content="width=device-width, user-scalable=no" />
+
+</head>
+<body>
+    <div id="box"></div>
+
+	<script type="text/javascript" src="js/m.touch.js"></script>
+    <script type="text/javascript">
+    	var box = document.querySelector('#box');
+    	var html = document.documentElement;
+
+    	var str = '<p>asdfasdf<img src="//ComplianceSupport//Scripts//Plugins//UEditor-utf8-net//net//upload//image//20170926//6364203764409050452683361.png" title="h_gp.png" alt="h_gp.png"/></p>';
+
+    	str = str.replace('<img src', '<img src');
+
+    	html.innerHTML = str;
+
+    	/*
+    		-ev.alpha 
+    		-ev.beta  围绕着x轴旋转
+    		-ev.gamma 围绕着y轴旋转
+    	*/
+    	window.addEventListener('deviceorientation', function(e){
+    		var x = e.beta;
+    		var y = e.alpha;
+    		var z = e.gamma;
+
+    		box.innerHTML = 'x:'+x;
+    		box.innerHTML += '<br />y:'+y;
+    		box.innerHTML += '<br />z:'+z;
+    	});
+    </script>
+</body>
+</html>

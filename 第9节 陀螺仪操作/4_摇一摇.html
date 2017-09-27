@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="viewport" content="width=device-width, user-scalable=no" />
+
+</head>
+<body>
+    
+
+    <script type="text/javascript">
+    	fnShake(function(e){
+    		alert('摇一摇');
+    	});
+
+    	// 检测手机的重力加速，忽然就比较大的变化幅度
+    	function fnShake(callBack){
+    		var RANGE = 40; //当手机的两次加速度之间的差值，超过了这个幅度我们就认为用户在进行摇一摇
+    		var lastX, lastY, lastZ;
+    		var isShake = false;
+    		var lastTime = Date.now();
+
+    		window.addEventListener('devicemotion', function(e){
+    			var nowTime = Date.now();
+
+    			if( nowTime - lastTime > 100 ){
+    				var motion = e.accelerationIncludingGravity;
+	    			var x = motion.x;
+	    			var y = motion.y;
+	    			var z = motion.z;
+	    			var nowRange = Math.abs(x-lastX) + Math.abs(y-lastY) + Math.abs(z-lastZ);
+
+	    			if( nowRange >= RANGE ){
+	    				isShake = true;
+	    			}
+
+	    			if( nowRange < 5 && isShake ){
+	    				callBack&&callBack();
+	    				isShake = false;
+	    			}
+	    			lastX = x;
+	    			lastY = y;
+	    			lastZ = z;
+    			}
+	    			
+    		})
+    	}
+    </script>
+</body>
+</html>
